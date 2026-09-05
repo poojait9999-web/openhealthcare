@@ -58,6 +58,7 @@ export function PatientRegistration(props: PatientRegistrationProps) {
         .string()
         .min(1, t("field_required"))
         .refine(validateName, t("min_char_length_error", { min_length: 3 })),
+      test_field: z.string().optional(),
       gender: z.enum(GENDERS, { required_error: t("gender_is_required") }),
       address: z.string().min(1, t("field_required")),
       age: z.string().optional(),
@@ -98,6 +99,7 @@ export function PatientRegistration(props: PatientRegistrationProps) {
       name: "",
       ageInputType: "date_of_birth",
       address: "",
+      test_field: "",
     },
   });
 
@@ -165,7 +167,7 @@ export function PatientRegistration(props: PatientRegistrationProps) {
   // https://tanstack.com/router/latest/docs/framework/react/guide/navigation-blocking#how-do-i-use-navigation-blocking
   useNavigationPrompt(
     form.formState.isDirty && !isCreatingAppointment,
-    t("unsaved_changes"),
+    t("unsaved_changes"), 
   );
 
   // const [showAutoFilledPincode, setShowAutoFilledPincode] = useState(false);
@@ -190,7 +192,7 @@ export function PatientRegistration(props: PatientRegistrationProps) {
         <form onSubmit={onSubmit} className="mx-auto space-y-6">
           <div className="container mx-auto p-4 max-w-3xl">
             <h2 className="text-xl font-semibold">
-              {t("patient_registration")}
+              Patient Basiccccccccccccc
             </h2>
 
             <div className="mt-4 space-y-6 flex flex-col bg-white border border-gray-200/50 rounded-md p-8 shadow-md">
@@ -198,6 +200,23 @@ export function PatientRegistration(props: PatientRegistrationProps) {
                 {t("phone_number_verified")}:{" "}
                 <span className="font-bold">{tokenData.phoneNumber}</span>
               </span>
+
+              <FormField
+                control={form.control}
+                name="test_field"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Test Field</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Enter test value"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
               <FormField
                 control={form.control}
@@ -229,7 +248,7 @@ export function PatientRegistration(props: PatientRegistrationProps) {
                       />
                     </FormControl>
                     <FormMessage />
-                  </FormItem>
+                  </FormItem> 
                 )}
               />
 
